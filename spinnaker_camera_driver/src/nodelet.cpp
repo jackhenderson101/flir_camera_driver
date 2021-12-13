@@ -338,7 +338,7 @@ private:
 
     // Set up a diagnosed publisher
     double desired_freq;
-    pnh.param<double>("desired_freq", desired_freq, 30.0);
+    pnh.param<double>("desired_freq", desired_freq, 120.0);
     pnh.param<double>("min_freq", min_freq_, desired_freq);
     pnh.param<double>("max_freq", max_freq_, desired_freq);
     double freq_tolerance;  // Tolerance before stating error on publish frequency, fractional percent of desired
@@ -365,14 +365,14 @@ private:
         boost::bind(&SpinnakerCameraNodelet::diagCb, this);
     diagnostics_pub_.reset(
         new ros::Publisher(nh.advertise<diagnostic_msgs::DiagnosticArray>(
-            "/diagnostics", 1, diag_cb, diag_cb)));
+            "/spinnaker_camera/diagnostics", 1, diag_cb, diag_cb)));
 
     diag_man = std::unique_ptr<DiagnosticsManager>(new DiagnosticsManager(
         frame_id_, std::to_string(spinnaker_.getSerial()), diagnostics_pub_));
     diag_man->addDiagnostic("DeviceTemperature", true, std::make_pair(0.0f, 90.0f), -10.0f, 95.0f);
-    diag_man->addDiagnostic("AcquisitionResultingFrameRate", true, std::make_pair(10.0f, 60.0f), 5.0f, 90.0f);
-    diag_man->addDiagnostic("PowerSupplyVoltage", true, std::make_pair(4.5f, 5.2f), 4.4f, 5.3f);
-    diag_man->addDiagnostic("PowerSupplyCurrent", true, std::make_pair(0.4f, 0.6f), 0.3f, 1.0f);
+    diag_man->addDiagnostic("AcquisitionResultingFrameRate", true, std::make_pair(115.0f, 125.0f), 100.0f, 130.0f);
+    // diag_man->addDiagnostic("PowerSupplyVoltage", true, std::make_pair(4.5f, 5.2f), 4.4f, 5.3f);
+    //diag_man->addDiagnostic("PowerSupplyCurrent", true, std::make_pair(0.4f, 0.6f), 0.3f, 1.0f);
     diag_man->addDiagnostic<int>("DeviceUptime");
     diag_man->addDiagnostic<int>("U3VMessageChannelID");
   }
