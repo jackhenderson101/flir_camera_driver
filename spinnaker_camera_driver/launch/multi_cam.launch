@@ -45,7 +45,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" respawn="false" output="screen" />
 
     <group ns="front_camera">
-      <param name="image_raw/compressed/format" value="png" />
+      <param name="image_raw/compressed/format" value="jpeg" />
       <!-- Camera nodelet -->
       <node pkg="nodelet" type="nodelet" name="camera_nodelet" args="load spinnaker_camera_driver/SpinnakerCameraNodelet /$(env ROS_NAMESPACE)/camera_nodelet_manager" respawn="false" output="screen">
         <param name="frame_id" value="camera_front" />
@@ -63,7 +63,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </group>
 
     <group ns="rear_camera">
-      <param name="image_raw/compressed/format" value="png" />
+      <param name="image_raw/compressed/format" value="jpeg" />
       <!-- Camera nodelet -->
       <node pkg="nodelet" type="nodelet" name="camera_nodelet" args="load spinnaker_camera_driver/SpinnakerCameraNodelet /$(env ROS_NAMESPACE)/camera_nodelet_manager" respawn="false">
         <param name="frame_id" value="rear" />
