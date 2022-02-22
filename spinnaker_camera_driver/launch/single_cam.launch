@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- When unspecified, the driver will use the default framerate as given by the
+      camera itself. Use the parameter 'control_frame_rate' to enable manual frame 
+      rate control, and 'frame_rate' to set the frame rate value. -->
+  <arg name="control_frame_rate" default="true" />
+  <arg name="frame_rate" default="120" />
+  
+  <arg name="front_camera_serial" default="0" />
+  <arg name="front_camera_calibrated" default="1" />
+
+
+  <arg name="flip_vertical" default="true" />
+  <arg name="flip_horizontal" default="true" />
+
+  <!-- Nodelet manager -->
+  <!-- Both cameras are not loaded into one nodelet manager to avoid the namespacing issue. -->
+  <node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" respawn="false" output="screen" />
+
+    <group ns="front_camera">
+      <param name="image_raw/compressed/format" value="jpeg" />
+      <!-- Camera nodelet -->
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet" args="load spinnaker_camera_driver/SpinnakerCameraNodelet /$(env ROS_NAMESPACE)/camera_nodelet_manager" respawn="false" output="screen">
+        <param name="frame_id" value="camera_front" />
+        <param name="serial" value="$(arg front_camera_serial)" />
+
+        <param name="image_format_y_reverse" value="$(arg flip_vertical)" />
+        <param name="image_format_x_reverse" value="$(arg flip_horizontal)" />
+
+        <!-- Frame rate -->
+        <param name="acquisition_frame_rate_enable" value="$(arg control_frame_rate)" />
+        <param name="acquisition_frame_rate" value="$(arg frame_rate)" />
+
+        <param name="exposure_auto" value="Off" />
+        <param name="exposure_time" value="$(arg exposure_time)" />
+        <param name="auto_gain" value="Off" />
+        <param name="gain" value="0" />
+
+      </node>
+    </group>
+</launch>

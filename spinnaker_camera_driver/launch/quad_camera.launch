@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find spinnaker_camera_driver)/launch/single_cam.launch">
+        <arg name="front_camera_serial" value="20270773" />
+        <arg name="exposure_time" value="1000" />
+    </include>
+</launch>
