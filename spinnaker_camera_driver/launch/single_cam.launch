@@ -6,6 +6,7 @@
       rate control, and 'frame_rate' to set the frame rate value. -->
   <arg name="control_frame_rate" default="true" />
   <arg name="frame_rate" default="120" />
+  <arg name="exposure_time" default="1000" />
   
   <arg name="front_camera_serial" default="0" />
   <arg name="front_camera_calibrated" default="1" />
